@@ -1,0 +1,548 @@
+/* ===========================
+   CSS Reset & Variables
+   =========================== */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Windows 11 Calculator Dark Theme Colors */
+    --bg-primary: #1e1e1e;
+    --bg-secondary: #2d2d2d;
+    --bg-tertiary: #3b3b3b;
+    --bg-titlebar: #1e1e1e;
+
+    --text-primary: #ffffff;
+    --text-secondary: #a0a0a0;
+    --text-disabled: #5a5a5a;
+
+    --btn-number-bg: #3b3b3b;
+    --btn-number-hover: #4a4a4a;
+    --btn-number-active: #333333;
+
+    --btn-func-bg: #323232;
+    --btn-func-hover: #3e3e3e;
+    --btn-func-active: #2a2a2a;
+
+    --btn-op-bg: #323232;
+    --btn-op-hover: #3e3e3e;
+    --btn-op-active: #2a2a2a;
+
+    --btn-equals-bg: #4cc2ff;
+    --btn-equals-hover: #60cbff;
+    --btn-equals-active: #3ba8e0;
+
+    --memory-text: #a0a0a0;
+    --memory-text-disabled: #4a4a4a;
+
+    --border-subtle: rgba(255, 255, 255, 0.05);
+
+    --shadow-calculator: 0 8px 32px rgba(0, 0, 0, 0.5),
+                          0 2px 8px rgba(0, 0, 0, 0.3);
+
+    --transition-fast: 0.1s ease;
+    --transition-normal: 0.2s ease;
+
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+}
+
+/* ===========================
+   Base Styles
+   =========================== */
+html {
+    font-size: 16px;
+}
+
+body {
+    font-family: 'Segoe UI', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: var(--text-primary);
+    overflow: hidden;
+}
+
+/* Animated background grid */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        radial-gradient(circle at 20% 50%, rgba(76, 194, 255, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(76, 194, 255, 0.02) 0%, transparent 50%),
+        radial-gradient(circle at 50% 80%, rgba(138, 43, 226, 0.02) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ===========================
+   Calculator Container
+   =========================== */
+.calculator {
+    width: 322px;
+    background: var(--bg-primary);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-calculator);
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    animation: calcAppear 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    user-select: none;
+}
+
+@keyframes calcAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.95) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* ===========================
+   Title Bar
+   =========================== */
+.title-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 6px 6px 12px;
+    background: var(--bg-titlebar);
+    height: 32px;
+}
+
+.title-bar-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.title-icon {
+    font-size: 14px;
+    line-height: 1;
+}
+
+.title-text {
+    font-size: 12px;
+    color: var(--text-secondary);
+    font-weight: 400;
+}
+
+.title-bar-right {
+    display: flex;
+    align-items: center;
+    gap: 0;
+}
+
+.title-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    width: 46px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 11px;
+    border-radius: var(--radius-sm);
+    transition: background var(--transition-fast),
+                color var(--transition-fast);
+}
+
+.title-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text-primary);
+}
+
+.close-btn:hover {
+    background: #c42b1c;
+    color: white;
+}
+
+/* ===========================
+   Calculator Header
+   =========================== */
+.calc-header {
+    display: flex;
+    align-items: center;
+    padding: 4px 8px;
+    gap: 8px;
+}
+
+.menu-btn,
+.history-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: var(--radius-sm);
+    transition: background var(--transition-fast);
+}
+
+.menu-btn:hover,
+.history-btn:hover {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.calc-type {
+    font-size: 20px;
+    font-weight: 600;
+    flex: 1;
+}
+
+.history-btn {
+    margin-left: auto;
+    font-size: 18px;
+}
+
+/* ===========================
+   Display Area
+   =========================== */
+.display-area {
+    padding: 0 12px 8px;
+    text-align: right;
+    min-height: 90px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.expression {
+    font-size: 13px;
+    color: var(--text-secondary);
+    min-height: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    direction: rtl;
+    text-align: right;
+    padding-right: 4px;
+    transition: color var(--transition-normal);
+}
+
+.display {
+    font-size: 48px;
+    font-weight: 300;
+    color: var(--text-primary);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-height: 60px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding-right: 4px;
+    transition: font-size var(--transition-normal);
+    line-height: 1.15;
+}
+
+/* Auto-shrink for long numbers */
+.display.shrink-1 {
+    font-size: 40px;
+}
+.display.shrink-2 {
+    font-size: 32px;
+}
+.display.shrink-3 {
+    font-size: 26px;
+}
+
+
+/* ===========================
+   Button Grid
+   =========================== */
+.button-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    padding: 2px 4px 4px;
+}
+
+.btn {
+    height: 56px;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 16px;
+    font-weight: 400;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background var(--transition-fast),
+                transform 0.05s ease;
+    position: relative;
+    overflow: hidden;
+    font-family: inherit;
+}
+
+.btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: transparent;
+    transition: background var(--transition-fast);
+}
+
+.btn:active {
+    transform: scale(0.97);
+}
+
+/* Ripple effect */
+.btn .ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+    transform: scale(0);
+    animation: rippleEffect 0.6s ease-out;
+    pointer-events: none;
+}
+
+@keyframes rippleEffect {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* Number buttons */
+.num-btn {
+    background: var(--btn-number-bg);
+    color: var(--text-primary);
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.num-btn:hover {
+    background: var(--btn-number-hover);
+}
+
+.num-btn:active {
+    background: var(--btn-number-active);
+}
+
+/* Function buttons */
+.func-btn {
+    background: var(--btn-func-bg);
+    color: var(--text-primary);
+    font-size: 15px;
+}
+
+.func-btn:hover {
+    background: var(--btn-func-hover);
+}
+
+.func-btn:active {
+    background: var(--btn-func-active);
+}
+
+/* Operator buttons */
+.op-btn {
+    background: var(--btn-op-bg);
+    color: var(--text-primary);
+    font-size: 20px;
+}
+
+.op-btn:hover {
+    background: var(--btn-op-hover);
+}
+
+.op-btn:active {
+    background: var(--btn-op-active);
+}
+
+/* Equals button */
+.equals-btn {
+    background: var(--btn-equals-bg);
+    color: #000000;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.equals-btn:hover {
+    background: var(--btn-equals-hover);
+}
+
+.equals-btn:active {
+    background: var(--btn-equals-active);
+}
+
+/* Active operator highlight */
+.op-btn.active-op {
+    background: rgba(76, 194, 255, 0.15);
+    color: var(--btn-equals-bg);
+    box-shadow: inset 0 0 0 1px rgba(76, 194, 255, 0.3);
+}
+
+/* ===========================
+   Troll Toast Notification
+   =========================== */
+.troll-toast {
+    position: absolute;
+    bottom: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(50, 50, 50, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-md);
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+    transition: bottom 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.4s ease;
+    opacity: 0;
+    z-index: 10;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.troll-toast.visible {
+    bottom: 10px;
+    opacity: 1;
+}
+
+.troll-emoji {
+    font-size: 20px;
+    animation: trollBounce 0.5s ease infinite alternate;
+}
+
+@keyframes trollBounce {
+    from { transform: translateY(0); }
+    to { transform: translateY(-3px); }
+}
+
+.troll-message {
+    font-size: 12px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* ===========================
+   Troll Overlay (Floating emojis)
+   =========================== */
+.troll-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 100;
+    overflow: hidden;
+}
+
+.floating-emoji {
+    position: absolute;
+    font-size: 32px;
+    animation: floatUp 2s ease-out forwards;
+    pointer-events: none;
+}
+
+@keyframes floatUp {
+    0% {
+        opacity: 1;
+        transform: translateY(0) rotate(0deg) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-200px) rotate(360deg) scale(0.3);
+    }
+}
+
+/* ===========================
+   Display Shake Animation
+   =========================== */
+.display.shake {
+    animation: displayShake 0.5s ease;
+}
+
+@keyframes displayShake {
+    0%, 100% { transform: translateX(0); }
+    10% { transform: translateX(-4px); }
+    20% { transform: translateX(4px); }
+    30% { transform: translateX(-4px); }
+    40% { transform: translateX(4px); }
+    50% { transform: translateX(-2px); }
+    60% { transform: translateX(2px); }
+    70% { transform: translateX(-1px); }
+    80% { transform: translateX(1px); }
+}
+
+/* Troll flash - brief color flash on display */
+.display.troll-flash {
+    animation: trollFlash 0.3s ease;
+}
+
+@keyframes trollFlash {
+    0% { color: var(--text-primary); }
+    50% { color: #ff6b6b; }
+    100% { color: var(--text-primary); }
+}
+
+/* ===========================
+   Responsive
+   =========================== */
+@media (max-width: 360px) {
+    .calculator {
+        width: 100vw;
+        border-radius: 0;
+        height: 100vh;
+    }
+
+    .btn {
+        height: 64px;
+    }
+
+    .display {
+        font-size: 42px;
+    }
+}
+
+/* ===========================
+   Scrollbar Styling
+   =========================== */
+::-webkit-scrollbar {
+    width: 4px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+}
+
+/* ===========================
+   Focus Styles (Accessibility)
+   =========================== */
+.btn:focus-visible,
+.memory-btn:focus-visible,
+.title-btn:focus-visible {
+    outline: 2px solid var(--btn-equals-bg);
+    outline-offset: -2px;
+}

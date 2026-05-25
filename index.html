@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Troll Calculator - A calculator that trolls you with random operations. Looks normal, acts chaotic!">
+    <title>Troll Calculator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤡</text></svg>">
+</head>
+<body>
+    <div class="calculator" id="calculator">
+        <!-- Title bar -->
+        <div class="title-bar">
+            <div class="title-bar-left">
+                <span class="title-icon">🤡</span>
+                <span class="title-text">Calculator</span>
+            </div>
+            <div class="title-bar-right">
+                <button class="title-btn" id="minimizeBtn" aria-label="Minimize">─</button>
+                <button class="title-btn" id="maximizeBtn" aria-label="Maximize">□</button>
+                <button class="title-btn close-btn" id="closeBtn" aria-label="Close">✕</button>
+            </div>
+        </div>
+
+        <!-- Calculator type -->
+        <div class="calc-header">
+            <button class="menu-btn" id="menuBtn" aria-label="Menu">☰</button>
+            <span class="calc-type">Standard</span>
+            <button class="history-btn" id="historyBtn" aria-label="History">🕒</button>
+        </div>
+
+        <!-- Display -->
+        <div class="display-area">
+            <div class="expression" id="expression">&nbsp;</div>
+            <div class="display" id="display">0</div>
+        </div>
+        <!-- Button grid -->
+        <div class="button-grid">
+            <button class="btn func-btn" id="percentBtn">%</button>
+            <button class="btn func-btn" id="ceBtn">CE</button>
+            <button class="btn func-btn" id="clearBtn">C</button>
+            <button class="btn func-btn" id="backspaceBtn">⌫</button>
+
+            <button class="btn func-btn" id="reciprocalBtn"><sup>1</sup>/<sub>x</sub></button>
+            <button class="btn func-btn" id="squareBtn">x²</button>
+            <button class="btn func-btn" id="sqrtBtn">²√x</button>
+            <button class="btn op-btn" id="divideBtn">÷</button>
+
+            <button class="btn num-btn" id="btn7">7</button>
+            <button class="btn num-btn" id="btn8">8</button>
+            <button class="btn num-btn" id="btn9">9</button>
+            <button class="btn op-btn" id="multiplyBtn">×</button>
+
+            <button class="btn num-btn" id="btn4">4</button>
+            <button class="btn num-btn" id="btn5">5</button>
+            <button class="btn num-btn" id="btn6">6</button>
+            <button class="btn op-btn" id="subtractBtn">−</button>
+
+            <button class="btn num-btn" id="btn1">1</button>
+            <button class="btn num-btn" id="btn2">2</button>
+            <button class="btn num-btn" id="btn3">3</button>
+            <button class="btn op-btn" id="addBtn">+</button>
+
+            <button class="btn num-btn" id="negateBtn">⁺/₋</button>
+            <button class="btn num-btn" id="btn0">0</button>
+            <button class="btn num-btn" id="decimalBtn">.</button>
+            <button class="btn equals-btn" id="equalsBtn">=</button>
+        </div>
+
+        <!-- Troll indicator (hidden by default, appears after troll) -->
+        <div class="troll-toast" id="trollToast">
+            <span class="troll-emoji">🤡</span>
+            <span class="troll-message" id="trollMessage"></span>
+        </div>
+    </div>
+
+    <!-- Troll reaction overlay -->
+    <div class="troll-overlay" id="trollOverlay"></div>
+
+    <script src="calculator.js"></script>
+</body>
+</html>
